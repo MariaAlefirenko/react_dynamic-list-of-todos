@@ -1,8 +1,9 @@
 import React from 'react';
+import { StatusState } from '../../types/StatusState';
 
 interface Props {
-  status: 'all' | 'active' | 'completed';
-  onStatusChange: (value: 'all' | 'active' | 'completed') => void;
+  status: StatusState;
+  onStatusChange: (value: StatusState) => void;
   query: string;
   onQueryChange: (value: string) => void;
 }
@@ -14,19 +15,17 @@ export const TodoFilter: React.FC<Props> = ({
   onQueryChange,
 }) => {
   return (
-    <form className="field has-addons" onSubmit={e => e.preventDefault()}>
+    <form className="field has-addons">
       <p className="control">
         <span className="select">
           <select
             data-cy="statusSelect"
             value={status}
-            onChange={e =>
-              onStatusChange(e.target.value as 'all' | 'active' | 'completed')
-            }
+            onChange={e => onStatusChange(e.target.value as StatusState)}
           >
-            <option value="all">All</option>
-            <option value="active">Active</option>
-            <option value="completed">Completed</option>
+            <option value={StatusState.All}>All</option>
+            <option value={StatusState.Active}>Active</option>
+            <option value={StatusState.Completed}>Completed</option>
           </select>
         </span>
       </p>
